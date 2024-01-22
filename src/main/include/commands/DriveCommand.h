@@ -27,13 +27,23 @@ class DriveCommand : public frc2::CommandHelper<frc2::Command, DriveCommand> {
    * Creates a new Drive.
    *
    * @param drivetrain The drivetrain class used by this command.
+   * @param xTranslationSupplier A function which returns the desired X state in
+   * mps
+   * @param yTranslationSupplier A function which returns the desired Y state in
+   * mps
+   * @param thetaSupplier A function which returns the desired rotational state
+   * in rad_per_sec
    */
-  DriveCommand(Drivetrain* drivetrain, RobotContainer* robotContainer);
+  DriveCommand(Drivetrain* drivetrain,
+               std::function<units::meters_per_second_t()> xTranslationSupplier,
+               std::function<units::meters_per_second_t()> yTranslationSupplier,
+               std::function<units::radians_per_second_t()> thetaSupplier);
   void Execute() override;
   void End(bool interrupted) override;
 
  private:
   Drivetrain* drivetrain;
-  // this is probably bad practice, but it is more practical
-  RobotContainer* robot;
+  std::function<units::meters_per_second_t()> xTranslation;
+  std::function<units::meters_per_second_t()> yTranslation;
+  std::function<units::radians_per_second_t()> theta;
 };

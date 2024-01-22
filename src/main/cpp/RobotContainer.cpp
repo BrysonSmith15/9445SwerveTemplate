@@ -16,7 +16,10 @@ RobotContainer::RobotContainer() {
 
   // Configure the button bindings
   ConfigureBindings();
-  this->drivetrain.SetDefaultCommand(DriveCommand(&drivetrain, this));
+  this->drivetrain.SetDefaultCommand(DriveCommand(
+      &drivetrain, [this] { return this->getXState(); },
+      [this] { return this->getYState(); },
+      [this] { return this->getThetaState(); }));
   this->flEncoder.Set(true);
   this->frEncoder.Set(true);
   this->blEncoder.Set(true);
