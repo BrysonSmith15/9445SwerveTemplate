@@ -37,9 +37,10 @@ class RobotContainer {
   // https://docs.wpilib.org/en/stable/docs/software/advanced-controls/filters/slew-rate-limiter.html
   // basically rate of change is limited by argument
   // just a fancy ramper
-  frc::SlewRateLimiter<units::scalar> xLimiter{1 / 1_s};
-  frc::SlewRateLimiter<units::scalar> yLimiter{1 / 1_s};
-  frc::SlewRateLimiter<units::scalar> thetaLimiter{1 / 1_s};
+  frc::SlewRateLimiter<units::meters_per_second_t> xLimiter{1_m / 1_s};
+  frc::SlewRateLimiter<units::meters_per_second_t> yLimiter{1_m / 1_s};
+  frc::SlewRateLimiter<units::radians_per_second_t> thetaLimiter{
+      units::radian_t{std::numbers::pi} / 1_s};
 
   // The robot's subsystems are defined here...
   Drivetrain drivetrain;

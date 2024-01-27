@@ -2,12 +2,11 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "RobotContainer.h"
-
 #include <frc2/command/RunCommand.h>
 #include <frc2/command/button/Trigger.h>
 
 #include "Constants.h"
+#include "RobotContainer.h"
 #include "commands/Autos.h"
 #include "commands/DriveCommand.h"
 
@@ -27,16 +26,14 @@ RobotContainer::RobotContainer() {
 }
 
 units::velocity::meters_per_second_t RobotContainer::getXState() {
-  return this->xLimiter
-             .Calculate(frc::ApplyDeadband(this->driverController.GetX(), 0.1))
-             .value() *
-         this->drivetrain.MAXSPEED;
+  return this->xLimiter.Calculate(
+      frc::ApplyDeadband(this->driverController.GetX(), 0.1) *
+      this->drivetrain.MAXSPEED);
 }
 units::velocity::meters_per_second_t RobotContainer::getYState() {
-  return this->yLimiter
-             .Calculate(frc::ApplyDeadband(this->driverController.GetY(), 0.1))
-             .value() *
-         this->drivetrain.MAXSPEED;
+  return this->yLimiter.Calculate(
+      frc::ApplyDeadband(this->driverController.GetY(), 0.1) *
+      this->drivetrain.MAXSPEED);
 }
 units::angular_velocity::radians_per_second_t RobotContainer::getThetaState() {
   if (OperatorConstants::usingFieldOrientedTurn) {
@@ -65,16 +62,13 @@ units::angular_velocity::radians_per_second_t RobotContainer::getThetaState() {
     delta *= -1;
     // this returns a field oriented theta based on which direction the driver
     // points the right joystick
-    return -this->thetaLimiter.Calculate(delta / (std::numbers::pi * 1_rad))
-                .value() *
-           this->drivetrain.MAXROT;
+    return -this->thetaLimiter.Calculate(delta / (std::numbers::pi * 1_rad) *
+                                         this->drivetrain.MAXROT);
   } else {
     // below is just turn based on how much driver says
-    return this->thetaLimiter
-               .Calculate(
-                   frc::ApplyDeadband(this->driverController.GetZ(), 0.1))
-               .value() *
-           this->drivetrain.MAXROT;
+    return this->thetaLimiter.Calculate(
+        frc::ApplyDeadband(this->driverController.GetZ(), 0.1) *
+        this->drivetrain.MAXROT);
   }
 }
 
