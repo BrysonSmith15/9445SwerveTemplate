@@ -46,9 +46,9 @@ class Drivetrain : public frc2::SubsystemBase {
                                              brLocation};
 
  private:
-  // TODO: Can the MXP stuff be used? Do we need to use usb-c<->usb-a
-  AHRS gyro{frc::SPI::Port::kMXP};
-  // TODO: these are not accurate enough; probably use the actual measurements.
+  // TODO: Do we need to use usb-c<->usb-a
+  AHRS gyro{frc::SerialPort::kUSB1};
+
   const units::length::foot_t forwardDist = 10.5_in;
   const units::length::foot_t horizontalDist = 10.5_in;
 

@@ -26,15 +26,7 @@ void Drivetrain::setStates(wpi::array<frc::SwerveModuleState, 4U> states) {
 }
 
 units::angle::radian_t Drivetrain::getGyroAngle() {
-  // this is needed because the NavX reads from 0-360 and beyond, not [-180,
-  // 180], which does not work with the other code
-  /*
-  units::angle::radian_t angle =
-      this->gyro.GetAngle() * (std::numbers::pi / 180.0) * 1_rad;
-  angle = fmod(angle.value(), 360.0) * 1_rad;
-  return angle < 180_deg ? angle : angle - 2_rad * std::numbers::pi;
-  */
-  return 0_rad;
+  return units::angle::degree_t{this->gyro.GetYaw()};
 }
 
 void Drivetrain::Periodic() {

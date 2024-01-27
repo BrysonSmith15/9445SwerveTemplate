@@ -49,8 +49,8 @@ class RobotContainer {
   // janky CANCoder power as a solenoid
   frc::PneumaticHub pneuHub{2};
   // TODO: Change the solenoid ports
-  frc::Solenoid flEncoder = this->pneuHub.MakeSolenoid(0);
-  frc::Solenoid frEncoder = this->pneuHub.MakeSolenoid(0);
+  frc::Solenoid flEncoder = this->pneuHub.MakeSolenoid(9);
+  frc::Solenoid frEncoder = this->pneuHub.MakeSolenoid(8);
   frc::Solenoid blEncoder = this->pneuHub.MakeSolenoid(0);
-  frc::Solenoid brEncoder = this->pneuHub.MakeSolenoid(0);
+  frc::Solenoid brEncoder = this->pneuHub.MakeSolenoid(1);
 };
